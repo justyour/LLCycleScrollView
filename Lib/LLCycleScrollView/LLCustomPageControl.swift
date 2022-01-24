@@ -8,8 +8,8 @@
 import UIKit
 
 class LLCustomPageControl: UIView {
-    let pageControlDiameter: Float = 8
-    let defaultColor: UIColor = UIColor.init(red: 40, green: 40, blue: 40, alpha: 1)
+    let pageControlDiameter: Float = 5
+    let defaultColor: UIColor = UIColor.init(red: 10, green: 10, blue: 10, alpha: 1)
     let currentColor: UIColor = UIColor.white
     var currentPage: NSInteger = 0 {
         didSet {
@@ -31,6 +31,7 @@ class LLCustomPageControl: UIView {
                             dotFrame.size.width = CGFloat(self.pageControlDiameter)
                             dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
+                            dot.layer.cornerRadius = dotFrame.size.width / 2
                         }
                     }
                 })
@@ -53,6 +54,7 @@ class LLCustomPageControl: UIView {
                             dotFrame.size.width = CGFloat(self.pageControlDiameter)
                             dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
+                            dot.layer.cornerRadius = dotFrame.size.width / 2
                         }
                     }
                 })
@@ -95,6 +97,7 @@ class LLCustomPageControl: UIView {
                 temp.layer.cornerRadius = CGFloat(pageControlDiameter * 0.5)
                 temp.layer.masksToBounds = true
                 temp.backgroundColor = bgColor
+                temp.layer.cornerRadius = CGFloat(dotW / 2)
                 temp.tag = i
                 addSubview(temp)
             }
