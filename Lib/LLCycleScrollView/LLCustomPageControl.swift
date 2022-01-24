@@ -8,7 +8,9 @@
 import UIKit
 
 class LLCustomPageControl: UIView {
-    let pageControlDiameter: Float = 5
+    open var dotInActiveImage: UIImage = UIImage(named: "LLCycleScrollView.bundle/lldotInActive.png", in: Bundle(for: LLCycleScrollView.self), compatibleWith: nil)!
+    open var dotActiveImage: UIImage = UIImage(named: "LLCycleScrollView.bundle/lldotActive.png", in: Bundle(for: LLCycleScrollView.self), compatibleWith: nil)!
+    let pageControlDiameter: Int = 5
     let defaultColor: UIColor = UIColor.init(red: 10, green: 10, blue: 10, alpha: 1)
     let currentColor: UIColor = UIColor.white
     var currentPage: NSInteger = 0 {
@@ -22,17 +24,21 @@ class LLCustomPageControl: UIView {
                     for dot in self.subviews {
                         var dotFrame = dot.frame
                         if dot.tag == self.currentPage {
-                            dotFrame.size.width = CGFloat(self.pageControlDiameter * 2.0)
-                            dot.backgroundColor = self.currentColor
+                            dotFrame.size.width = CGFloat(self.pageControlDiameter * 2)
+//                            dot.backgroundColor = self.currentColor
                             dot.frame = dotFrame
+                            let imageV = dot as? UIImageView
+                            imageV?.image = self.dotInActiveImage
                             
                         } else if dot.tag <= oldValue && dot.tag > self.currentPage {
                             dotFrame.origin.x += CGFloat(self.pageControlDiameter)
                             dotFrame.size.width = CGFloat(self.pageControlDiameter)
-                            dot.backgroundColor = self.defaultColor
+//                            dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
-                            dot.layer.cornerRadius = dotFrame.size.width / 2
-                            dot.layer.masksToBounds = true
+//                            dot.layer.cornerRadius = dotFrame.size.width / 2
+//                            dot.layer.masksToBounds = true
+                            let imageV = dot as? UIImageView
+                            imageV?.image = self.dotActiveImage
                         }
                     }
                 })
@@ -42,10 +48,12 @@ class LLCustomPageControl: UIView {
                     for dot in self.subviews {
                         var dotFrame = dot.frame
                         if dot.tag == self.currentPage {
-                            dotFrame.size.width = CGFloat(self.pageControlDiameter * 2.0)
+                            dotFrame.size.width = CGFloat(self.pageControlDiameter * 2)
                             dotFrame.origin.x -= CGFloat(self.pageControlDiameter)
-                            dot.backgroundColor = self.currentColor
+//                            dot.backgroundColor = self.currentColor
                             dot.frame = dotFrame
+                            let imageV = dot as? UIImageView
+                            imageV?.image = self.dotInActiveImage
                             
                         } else if dot.tag > oldValue && dot.tag < self.currentPage {
                             dotFrame.origin.x -= CGFloat(self.pageControlDiameter)
@@ -53,10 +61,13 @@ class LLCustomPageControl: UIView {
                             
                         } else if dot.tag == oldValue {
                             dotFrame.size.width = CGFloat(self.pageControlDiameter)
-                            dot.backgroundColor = self.defaultColor
+//                            dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
-                            dot.layer.cornerRadius = dotFrame.size.width / 2
-                            dot.layer.masksToBounds = true
+                            let imageV = dot as? UIImageView
+                            imageV?.image = self.dotActiveImage
+//                            dot.layer.cornerRadius = dotFrame.size.width / 2
+//                            dot.layer.masksToBounds = true
+                          
                         }
                     }
                 })
@@ -76,31 +87,39 @@ class LLCustomPageControl: UIView {
                 }
             }
 
-            var dotX: Float = 0;
-            var dotW: Float = pageControlDiameter;
-            var bgColor: UIColor
+            var dotX: Int = 0;
+            var dotW: Int = pageControlDiameter;
+//            var bgColor: UIColor
+            var image: UIImage
             for i in 0..<numberOfPages {
                 if i <= currentPage {
-                    dotX = pageControlDiameter * 2.0 * Float(i)
+                    dotX = pageControlDiameter * 2 * i
                 } else {
-                    dotX = pageControlDiameter * 2 * Float(i) + pageControlDiameter
+                    dotX = pageControlDiameter * 2 * i + pageControlDiameter
                 }
                 
                 if i == currentPage {
                     dotW = pageControlDiameter * 2;
-                    bgColor = currentColor
+//                    bgColor = currentColor
+                    image = dotInActiveImage
                 } else {
                     dotW = pageControlDiameter;
-                    bgColor = defaultColor
+//                    bgColor = defaultColor
+                    image = dotActiveImage
                 }
 
-                let temp = UIView()
-                temp.frame = CGRect(x: CGFloat(dotX), y: CGFloat(0), width: CGFloat(dotW), height: CGFloat(pageControlDiameter))
-                temp.layer.cornerRadius = CGFloat(pageControlDiameter * 0.5)
-                temp.layer.masksToBounds = true
-                temp.backgroundColor = bgColor
-                temp.tag = i
-                addSubview(temp)
+                let tempImageV = UIImageView()
+                tempImageV.frame = CGRect(x: dotX, y: 0, width: dotW, height: pageControlDiameter)
+                tempImageV.image = image
+                tempImageV.contentMode = .scaleAspectFit
+//                let temp = UIView()
+//                temp.frame = CGRect(x: dotX, y: 0, width: dotW, height: pageControlDiameter)
+//                temp.layer.cornerRadius = CGFloat(pageControlDiameter / 2)
+//                temp.layer.masksToBounds = true
+//                temp.backgroundColor = bgColor
+                tempImageV.tag = i
+//                addSubview(temp)
+                addSubview(tempImageV)
             }
 
         }
