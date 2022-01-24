@@ -32,6 +32,7 @@ class LLCustomPageControl: UIView {
                             dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
                             dot.layer.cornerRadius = dotFrame.size.width / 2
+                            dot.layer.masksToBounds = true
                         }
                     }
                 })
@@ -55,6 +56,7 @@ class LLCustomPageControl: UIView {
                             dot.backgroundColor = self.defaultColor
                             dot.frame = dotFrame
                             dot.layer.cornerRadius = dotFrame.size.width / 2
+                            dot.layer.masksToBounds = true
                         }
                     }
                 })
@@ -97,7 +99,6 @@ class LLCustomPageControl: UIView {
                 temp.layer.cornerRadius = CGFloat(pageControlDiameter * 0.5)
                 temp.layer.masksToBounds = true
                 temp.backgroundColor = bgColor
-                temp.layer.cornerRadius = CGFloat(dotW / 2)
                 temp.tag = i
                 addSubview(temp)
             }
