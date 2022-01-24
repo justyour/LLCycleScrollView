@@ -17,6 +17,7 @@ public enum PageControlStyle {
     case pill
     case snake
     case image
+    case custom
 }
 
 /// Position
@@ -566,6 +567,12 @@ extension LLCycleScrollView {
             self.addSubview(pageControl!)
             pageControl?.isHidden = false
         }
+        if customPageControlStyle == .custom {
+            let customView = LLCustomPageControl.init(frame: .zero)
+            customView.numberOfPages = self.imagePaths.count
+            self.addSubview(customView)
+            customPageControl = customView
+        }
         
         calcScrollViewToScroll(collectionView)
     }
@@ -607,7 +614,7 @@ extension LLCycleScrollView {
         // Cell Size
         flowLayout?.itemSize = self.frame.size
         // Page Frame
-        if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image {
+        if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image{
             if pageControlPosition == .center {
                 pageControl?.frame = CGRect.init(x: 0, y: self.ll_h-pageControlBottom, width: UIScreen.main.bounds.width, height: 10)
             }else{
@@ -618,6 +625,12 @@ extension LLCycleScrollView {
                     pageControl?.frame = CGRect.init(x: (UIScreen.main.bounds.width - (pointSize?.width)! - pageControlLeadingOrTrialingContact) * 0.5, y: self.ll_h-pageControlBottom, width: UIScreen.main.bounds.width, height: 10)
                 }
             }
+        }else if customPageControlStyle == .custom{
+            let pointSize = self.imagePaths.count * 10
+            let y = self.ll_h-pageControlBottom
+//            let oldFrame = customPageControl?.frame
+            customPageControl?.frame = CGRect.init(x: self.ll_w / 2 - CGFloat(pointSize), y: y, width: UIScreen.main.bounds.width, height: 10)
+            
         }else{
             var y = self.ll_h-pageControlBottom
             
@@ -873,6 +886,8 @@ extension LLCycleScrollView: UIScrollViewDelegate {
         let indexOnPageControl = pageControlIndexWithCurrentCellIndex(index: currentIndex())
         if customPageControlStyle == .none || customPageControlStyle == .system || customPageControlStyle == .image {
             pageControl?.currentPage = indexOnPageControl
+        }else if (customPageControlStyle == .custom){
+            (customPageControl as? LLCustomPageControl)?.currentPage = indexOnPageControl
         }else{
             var progress: CGFloat = 999
             // Direction

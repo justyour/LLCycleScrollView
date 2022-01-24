@@ -116,7 +116,8 @@ class ViewController: UIViewController {
         bannerDemo1.lldidSelectItemAtIndex = { index in
             
         }
-        bannerDemo1.customPageControlStyle = .snake
+        bannerDemo1.customPageControlStyle = .custom
+        
         bannerDemo1.customPageControlInActiveTintColor = UIColor.red
         bannerDemo1.pageControlPosition = .center
         bannerDemo1.pageControlLeadingOrTrialingContact = 28
