@@ -163,7 +163,7 @@ class LLCycleScrollViewCell: UICollectionViewCell {
         titleBackView.addSubview(titleTextLab)
         
         titleTextLab.layer.borderColor = UIColor.orange.cgColor
-        titleTextLab.layer.borderWidth = 1
+        titleTextLab.layer.borderWidth = 0.5
         titleTextLab.layer.cornerRadius = 2
     }
     
