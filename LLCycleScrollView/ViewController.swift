@@ -39,6 +39,7 @@ class ViewController: UIViewController {
                       "如果代码在使用过程中出现问题",
                       "您可以发邮件到coderjianfeng@foxmail.com您可以发邮件到coderjianfeng@foxmail.com"
                       ];
+        let labTitles = ["中国","",""]
         
         
         // Storyboard Demo
@@ -68,13 +69,14 @@ class ViewController: UIViewController {
         titleDemo.customPageControlStyle = .none
         titleDemo.scrollDirection = .vertical
         titleDemo.font = UIFont.systemFont(ofSize: 13)
-        titleDemo.textColor = UIColor.white
-        titleDemo.titleBackgroundColor = UIColor.red
+        titleDemo.textColor = UIColor.orange
+        titleDemo.titleBackgroundColor = UIColor.white
         titleDemo.numberOfLines = 2
         // 文本　Leading约束
         titleDemo.titleLeading = 30
         scrollView.addSubview(titleDemo)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            titleDemo.titleLabs = labTitles
             titleDemo.titles = titles
         }
         

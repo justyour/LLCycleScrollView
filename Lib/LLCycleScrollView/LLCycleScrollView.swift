@@ -80,6 +80,9 @@ open class LLCycleScrollView: UIView {
         }
     }
     
+    /// 标签
+    open var titleLabs: Array<String> = []
+    
     // MARK:- Closure
     /// 回调
     open var lldidSelectItemAtIndex: LLdidSelectItemAtIndexClosure? = nil
@@ -171,6 +174,15 @@ open class LLCycleScrollView: UIView {
     
     /// Font
     open var font: UIFont = UIFont.systemFont(ofSize: 15)
+    
+    // 标签字体
+    open var titleTextLabFont: UIFont = UIFont.systemFont(ofSize: 11)
+    
+    // 标签字体颜色
+    open var titleTextLabTextColor: UIColor = UIColor.orange
+    
+    // 标签边框颜色
+    open var titleTextLabBoardColor: UIColor = UIColor.orange
     
     /// Background
     open var titleBackgroundColor: UIColor = UIColor.black.withAlphaComponent(0.3)
@@ -762,6 +774,10 @@ extension LLCycleScrollView: UICollectionViewDelegate, UICollectionViewDataSourc
         cell.titleLabelTextColor = textColor
         cell.titleBackViewBackgroundColor = titleBackgroundColor
         cell.titleLines = numberOfLines
+        //lab setting
+        cell.titleTextLabFont = titleTextLabFont
+        cell.titleTextLabTextColor = titleTextLabTextColor
+        cell.titleTextLabBoardColor = titleTextLabBoardColor
         
         // Leading
         cell.titleLabelLeading = titleLeading
@@ -772,6 +788,10 @@ extension LLCycleScrollView: UICollectionViewDelegate, UICollectionViewDataSourc
             
             let itemIndex = pageControlIndexWithCurrentCellIndex(index: indexPath.item)
             cell.title = titles[itemIndex]
+            if !titleLabs.isEmpty {
+                cell.titleLabStr = titleLabs[itemIndex]
+            }
+            
         }else{
             // Mode
             if let imageViewContentMode = imageViewContentMode {
