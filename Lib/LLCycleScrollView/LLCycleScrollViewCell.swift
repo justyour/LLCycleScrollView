@@ -173,9 +173,9 @@ class LLCycleScrollViewCell: UICollectionViewCell {
         
         imageView.frame = self.bounds
         titleBackView.frame = CGRect.init(x: 0, y: self.ll_h - titleLabelHeight, width: self.ll_w, height: titleLabelHeight)
-        let size = textHeightSizeWithFont(titleTextLabFont, height: 18, text: titleLabStr).width + 8
+        let size = textHeightSizeWithFont(titleTextLabFont, height: 18, text: titleLabStr).width + (titleLabStr.count > 0 ? 8 : 0)
         titleTextLab.frame = CGRect(x: titleLabelLeading, y: (titleLabelHeight - 18) / 2, width: size, height: 18)
-        titleLabel.frame = CGRect.init(x: titleTextLab.ll_x + titleTextLab.ll_w + 8, y: 0, width: self.ll_w - (titleTextLab.ll_x + titleTextLab.ll_w + 8), height: titleLabelHeight)
+        titleLabel.frame = CGRect.init(x: titleTextLab.ll_x + titleTextLab.ll_w + (titleLabStr.count > 0 ? 8 : 0), y: 0, width: self.ll_w - (titleTextLab.ll_x + titleTextLab.ll_w + 8), height: titleLabelHeight)
     }
     
     private func textHeightSizeWithFont(_ font: UIFont, height:CGFloat,option : NSStringDrawingOptions = NSStringDrawingOptions.usesLineFragmentOrigin, text: String = "") -> CGSize {
